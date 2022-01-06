@@ -24,7 +24,14 @@ function checksExistsUserAccount(request, response, next) {
 }
 
 function checksCreateTodosUserAvailability(request, response, next) {
-  // Complete aqui
+  const { user } = request;
+  const todos = user.todos;
+
+  if(user.pro || todos.length <10 ) {
+    return next();
+  }
+
+  response.status(403).json({ error: 'This plan is not available' });
 }
 
 function checksTodoExists(request, response, next) {
